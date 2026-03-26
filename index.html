@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="The Delight Cake - Best Cake Shop in Fatehpur. 24/7 Open. Fresh, Moist & Custom Cakes.">
+    <title>The Delight Cake | 24/7 Premium Bakery</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== VIBRANT CAKE THEME CSS VARIABLES ===== */
+        :root {
+            --choco-dark: #3E2723;
+            --velvet-red: #D81B60;
+            --velvet-light: #F06292;
+            --cream-bg: #FFFDF8;
+            --white: #FFFFFF;
+            --text-main: #4A4A4A;
+            --gold: #D4AF37;
+            --shadow-soft: 0 15px 35px rgba(216, 27, 96, 0.1);
+            --shadow-card: 0 10px 25px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== STRICT GLOBAL RESET (NO OVERFLOW) ===== */
+        *, *::before, *::after { 
+            margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; 
+        }
+        html, body { 
+            background-color: var(--cream-bg); color: var(--text-main); 
+            width: 100vw; max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; 
+        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--choco-dark); }
+        a { text-decoration: none; color: inherit; }
+        button, select, input, textarea { outline: none; border: none; font-family: 'Nunito', sans-serif; background: transparent; }
+        img { max-width: 100%; height: auto; display: block; }
+        
+        /* Basic SVG styling */
+        svg { width: 1em; height: 1em; fill: currentColor; }
+
+        /* ===== 24/7 TOP ALERT BAR ===== */
+        .top-bar { 
+            background: linear-gradient(90deg, var(--velvet-red), var(--velvet-light)); 
+            color: var(--white); text-align: center; padding: 10px; font-size: 0.95rem; 
+            font-weight: 800; letter-spacing: 1px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .top-bar svg { animation: ring 2s infinite; font-size: 1.2rem; }
+        @keyframes ring { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
+
+        /* ===== CREATIVE NAVBAR ===== */
+        header {
+            background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; width: 100%;
+        }
+        .logo { display: flex; flex-direction: column; }
+        .logo-main { font-size: 24px; font-weight: 800; color: var(--choco-dark); display: flex; align-items: center; gap: 8px; }
+        .logo-main svg { color: var(--velvet-red); font-size: 28px; }
+        .logo-sub { font-size: 0.7rem; color: #888; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        
+        .nav-links { display: flex; gap: 30px; list-style: none; font-weight: 700; font-size: 1.1rem; }
+        .nav-links a { position: relative; color: var(--text-main); transition: var(--transition); }
+        .nav-links a:hover { color: var(--velvet-red); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; background: var(--velvet-red); bottom: -5px; left: 0; transition: width 0.3s ease; border-radius: 5px; }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .cart-btn {
+            background: linear-gradient(135deg, var(--velvet-red), var(--velvet-light));
+            color: var(--white); padding: 10px 25px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.3); transition: var(--transition); cursor: pointer;
+        }
+        .cart-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(216, 27, 96, 0.4); }
+        .cart-count { background: var(--white); color: var(--velvet-red); font-size: 14px; padding: 2px 8px; border-radius: 20px; font-weight: 900; }
+        .menu-toggle { display: none; font-size: 32px; color: var(--choco-dark); cursor: pointer; }
+
+        /* ===== TASTY HERO SECTION ===== */
+        .hero {
+            position: relative; min-height: 85vh; width: 100%;
+            background: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.6)); }
+        .hero-content { position: relative; z-index: 10; text-align: center; color: var(--white); padding: 0 20px; width: 100%; max-width: 900px; animation: fadeIn 1s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 8px 20px; border-radius: 50px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.4); }
+        .hero-badge svg { color: var(--gold); }
+
+        .hero-content h1 { color: var(--white); font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; text-shadow: 2px 4px 10px rgba(0,0,0,0.3); }
+        .hero-content h1 span { color: var(--velvet-light); font-style: italic; }
+        .hero-content p { font-size: 1.3rem; margin-bottom: 40px; font-weight: 600; text-shadow: 1px 2px 5px rgba(0,0,0,0.5); }
+        
+        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; width: 100%; }
+        .btn-main { background: var(--white); color: var(--velvet-red); padding: 15px 40px; font-size: 1.2rem; font-weight: 800; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: var(--transition); display: flex; align-items: center; gap: 10px; }
+        .btn-main:hover { background: var(--velvet-red); color: var(--white); transform: translateY(-5px); }
+        .btn-outline { background: rgba(255,255,255,0.15); color: var(--white); padding: 15px 40px; font-size: 1.2rem; font-weight: 800; border-radius: 50px; border: 2px solid var(--white); transition: var(--transition); backdrop-filter: blur(5px); display: flex; align-items: center; gap: 10px; }
+        .btn-outline:hover { background: var(--white); color: var(--choco-dark); }
+
+        .wave-bottom { position: absolute; bottom: -5px; left: 0; width: 100%; overflow: hidden; line-height: 0; }
+        .wave-bottom svg { display: block; width: calc(100% + 1.3px); height: 80px; fill: var(--cream-bg); }
+
+        /* ===== ICONS / FEATURES SECTION ===== */
+        .features-wrap { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; padding: 60px 5% 20px; max-width: 1200px; margin: auto; }
+        .feat-item { text-align: center; width: 160px; }
+        .feat-icon { width: 80px; height: 80px; background: var(--white); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 15px; font-size: 35px; color: var(--velvet-red); box-shadow: var(--shadow-card); transition: var(--transition); }
+        .feat-item:hover .feat-icon { transform: translateY(-10px); background: var(--velvet-red); color: var(--white); box-shadow: var(--shadow-soft); }
+        .feat-item h4 { font-size: 1rem; font-weight: 800; color: var(--choco-dark); }
+
+        /* ===== CATEGORIES BUBBLES ===== */
+        .section-header { text-align: center; margin: 60px 0 40px; padding: 0 20px; }
+        .section-header h2 { font-size: 2.8rem; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; width: 50px; height: 4px; background: var(--velvet-red); bottom: -10px; left: 50%; transform: translateX(-50%); border-radius: 5px; }
+        
+        .categories { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; padding: 0 5%; width: 100%; }
+        .cat-box { background: var(--white); width: 140px; height: 140px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: var(--shadow-card); cursor: pointer; transition: var(--transition); border: 5px solid var(--cream-bg); }
+        .cat-box:hover { transform: translateY(-10px) scale(1.05); box-shadow: var(--shadow-soft); border-color: #ffeef2; }
+        .cat-box svg { font-size: 45px; color: var(--velvet-red); margin-bottom: 10px; }
+        .cat-box h3 { font-size: 1rem; font-weight: 800; color: var(--choco-dark); text-align: center; }
+
+        /* ===== PRODUCT MENU GRID ===== */
+        .menu-container { padding: 40px 5% 60px; max-width: 1300px; margin: auto; width: 100%; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding-top: 20px; width: 100%; }
+        
+        .product-card { background: var(--white); border-radius: 25px; padding: 15px; box-shadow: var(--shadow-card); transition: var(--transition); display: flex; flex-direction: column; position: relative; width: 100%; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-soft); }
+        
+        .bestseller-tag { position: absolute; top: 25px; left: -10px; background: var(--gold); color: var(--choco-dark); padding: 5px 15px; font-weight: 800; font-size: 0.85rem; border-radius: 0 20px 20px 0; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        .img-box { width: 100%; height: 220px; border-radius: 20px; overflow: hidden; position: relative; }
+        .pro-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .pro-img { transform: scale(1.1); }
+        
+        .veg-tag { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 8px; backdrop-filter: blur(5px); z-index: 2; }
+        .veg-dot { width: 14px; height: 14px; background: #2E7D32; border-radius: 50%; border: 2px solid white; }
+        
+        .pro-info { padding: 20px 10px 10px; flex-grow: 1; display: flex; flex-direction: column; text-align: left; }
+        .pro-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; color: var(--choco-dark); line-height: 1.3; }
+        .pro-desc { font-size: 0.95rem; color: #777; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+        
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 15px; border-top: 1px dashed #eee; }
+        .pro-price { font-size: 1.4rem; font-weight: 800; color: var(--velvet-red); }
+        
+        .add-btn { background: var(--choco-dark); color: var(--white); padding: 10px 20px; border-radius: 50px; font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 8px; transition: var(--transition); cursor: pointer; }
+        .add-btn:hover { background: var(--velvet-red); transform: scale(1.05); }
+
+        .view-all-container { text-align: center; margin-top: 50px; width: 100%; }
+        .view-all-btn { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--velvet-red), var(--velvet-light)); color: var(--white); padding: 15px 40px; font-size: 1.2rem; font-weight: 800; border-radius: 50px; box-shadow: 0 10px 25px rgba(216, 27, 96, 0.3); transition: var(--transition); }
+        .view-all-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(216, 27, 96, 0.4); }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials { background: var(--white); padding: 60px 5%; text-align: center; border-top: 1px dashed #eee; border-bottom: 1px dashed #eee; width: 100%; }
+        .test-card { max-width: 800px; margin: auto; }
+        .stars svg { color: var(--gold); font-size: 1.5rem; margin-bottom: 15px; }
+        .quote { font-size: 1.5rem; font-style: italic; color: var(--choco-dark); font-family: 'Playfair Display', serif; margin-bottom: 20px; line-height: 1.5; }
+        .author { font-weight: 800; color: var(--velvet-red); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ===== STRICTLY ADJUSTED SIDE CART MODAL ===== */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(62, 39, 35, 0.6); backdrop-filter: blur(3px); z-index: 1999; display: none; opacity: 0; transition: 0.3s; }
+        .cart-overlay.active { display: block; opacity: 1; }
+        
+        .cart-panel { 
+            position: fixed; top: 0; right: -100%; width: 400px; max-width: 100vw; height: 100vh; 
+            background: var(--cream-bg); z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; 
+            border-left: 5px solid var(--velvet-red); box-sizing: border-box; 
+        }
+        .cart-panel.active { right: 0; }
+        
+        .cart-header { padding: 20px; background: var(--white); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; width: 100%; box-sizing: border-box; }
+        .cart-header h2 { font-size: 1.5rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+        .cart-header h2 svg { color: var(--velvet-red); }
+        .close-btn { font-size: 26px; color: #ff4757; cursor: pointer; transition: transform 0.3s; }
+        .close-btn:hover { transform: rotate(90deg); }
+        
+        .cart-body { padding: 20px; flex-grow: 1; overflow-y: auto; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border-left: 4px solid var(--choco-dark); width: 100%; box-sizing: border-box; }
+        .item-details h4 { font-size: 1rem; font-weight: 800; color: var(--choco-dark); line-height: 1.2; margin-bottom: 5px; }
+        .item-details p { color: var(--velvet-red); font-weight: 800; font-size: 1.1rem; }
+        .del-btn { color: #ff4757; background: #ffebee; width: 35px; height: 35px; min-width: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); }
+        
+        .checkout-form { margin-top: 25px; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: var(--shadow-card); width: 100%; box-sizing: border-box; }
+        .checkout-form h4 { margin-bottom: 15px; font-size: 1.1rem; color: var(--choco-dark); font-weight: 800; }
+        .input-group { margin-bottom: 15px; width: 100%; }
+        .input-group input, .input-group select, .input-group textarea { 
+            width: 100%; max-width: 100%; box-sizing: border-box; padding: 12px 20px; 
+            border: 2px solid #eee; border-radius: 50px; font-size: 0.95rem; font-weight: 600; 
+            outline: none; transition: var(--transition); background: #fafafa;
+        }
+        .input-group select { cursor: pointer; }
+        .input-group textarea { border-radius: 20px; height: 80px; resize: none; }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--velvet-light); background: #fffafb; }
+        
+        .cart-footer { padding: 20px; background: var(--white); border-top: 1px solid #eee; width: 100%; box-sizing: border-box; }
+        .bill-row { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; margin-bottom: 15px; color: var(--choco-dark); }
+        .wa-btn { width: 100%; box-sizing: border-box; background: #25D366; color: white; padding: 15px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); transition: var(--transition); cursor: pointer; border: none; }
+        .wa-btn:hover { background: #128C7E; transform: translateY(-3px); }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--choco-dark); color: var(--white); padding: 70px 5% 30px; position: relative; width: 100%; overflow: hidden; }
+        .wave-top { position: absolute; top: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg); }
+        .wave-top svg { display: block; width: calc(100% + 1.3px); height: 50px; fill: var(--cream-bg); }
+        
+        .foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px; margin-top: 30px; width: 100%; }
+        .foot-col h3 { color: var(--velvet-light); margin-bottom: 25px; font-size: 1.8rem; display: flex; align-items: center; gap: 10px; }
+        .foot-col p { color: #f0f0f0; margin-bottom: 15px; font-size: 1.05rem; display: flex; align-items: flex-start; gap: 15px; line-height: 1.5; }
+        .foot-col svg { color: var(--velvet-light); font-size: 1.2rem; min-width: 20px; margin-top: 4px; }
+        
+        .gst-badge { display: inline-block; border: 1px dashed var(--gold); padding: 10px 15px; border-radius: 10px; background: rgba(212, 175, 55, 0.1); margin-top: 10px; }
+        .gst-badge span { color: var(--gold); font-weight: 800; letter-spacing: 1px; }
+
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1rem; color: #ccc; }
+        .copyright span { color: var(--velvet-light); font-weight: 800; letter-spacing: 1px; }
+
+        .float-wa { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); z-index: 100; animation: pulse 2s infinite; transition: var(--transition); }
+        .float-wa:hover { transform: scale(1.1); animation: none; }
+
+        /* ===== RESPONSIVE MOBILE FIXES ===== */
+        @media (max-width: 768px) {
+            .logo-main { font-size: 1.3rem; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            
+            .hero-content { padding: 30px 15px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            
+            .btn-group { flex-direction: column; align-items: center; gap: 15px; }
+            .btn-main, .btn-outline { width: 100%; max-width: 100%; justify-content: center; }
+            
+            .features-wrap { gap: 15px; }
+            .feat-item { width: 45%; } 
+            
+            .categories { gap: 15px; }
+            .cat-box { width: 110px; height: 110px; }
+            .cat-box svg { font-size: 30px; }
+            
+            .product-grid { grid-template-columns: 1fr; }
+            .cart-panel { width: 100%; right: -100%; border-left: none; }
+            .float-wa { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path fill="currentColor" d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/></svg>
+        <span>OPEN 24/7 • MIDNIGHT DELIVERY</span>
+    </div>
+
+    <header>
+        <div class="logo">
+            <span class="logo-main">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
+                The Delight Cake
+            </span>
+            <span class="logo-sub">Fatehpur</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Full Menu</a></li>
+            <li><a href="custom-cake.html">Custom Cakes</a></li>
+        </ul>
+        <div style="display: flex; align-items: center;">
+            <button class="cart-btn" onclick="openCart()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921zM17.307 15h-6.64l-2.5-6h11.39l-2.25 6z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>
+                My Cart
+                <span class="cart-count" id="cart-badge">0</span>
+            </button>
+            <div class="menu-toggle" style="margin-left: 15px;">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            </div>
+        </div>
+    </header>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h2>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921zM17.307 15h-6.64l-2.5-6h11.39l-2.25 6z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>
+                Your Basket
+            </h2>
+            <div class="close-btn" onclick="closeCart()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </div>
+        </div>
+        
+        <div class="cart-body">
+            <div id="cart-items-list">
+                <div style="text-align: center; color: #999; margin-top: 40px; font-size: 1.1rem; font-weight: 600;">
+                    Your basket is feeling empty!
+                </div>
+            </div>
+            
+            <div class="checkout-form" id="checkout-form" style="display: none;">
+                <h4>Delivery Details</h4>
+                <div class="input-group">
+                    <input type="text" id="cust-name" placeholder="Your Good Name *" required>
+                </div>
+                <div class="input-group">
+                    <select id="order-type" onchange="toggleAddress()">
+                        <option value="Home Delivery">Home Delivery 🛵</option>
+                        <option value="Same Day Delivery">Same Day Delivery ⚡</option>
+                        <option value="Store Pickup">In-Store Collect 🛍️</option>
+                    </select>
+                </div>
+                <div class="input-group" id="address-box">
+                    <textarea id="cust-address" placeholder="Complete Address (Fatehpur City Only) *"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="bill-row">
+                <span>Total:</span>
+                <span>₹<span id="cart-total-price">0</span></span>
+            </div>
+            <button class="wa-btn" onclick="checkoutViaWhatsApp()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.52 3.449A11.914 11.914 0 0 0 12 0C5.383 0 0 5.383 0 12c0 2.119.553 4.181 1.605 5.999L.462 23.53l5.658-1.488a11.91 11.91 0 0 0 5.88 1.543h.005c6.616 0 12-5.383 12-12 0-3.208-1.247-6.223-3.485-8.486v-.65zM12 21.579a9.92 9.92 0 0 1-5.068-1.385l-.364-.216-3.766.988.995-3.673-.236-.376A9.928 9.928 0 0 1 2.006 12C2.006 6.494 6.494 2.006 12 2.006c2.673 0 5.185 1.042 7.074 2.933A9.932 9.932 0 0 1 21.993 12c0 5.506-4.488 9.994-9.994 9.994l.001-.415zM17.472 14.382c-.301-.151-1.776-.877-2.05-.978-.274-.101-.474-.151-.674.151-.201.301-.775.978-.95 1.179-.175.201-.35.226-.65.075-.3-.151-1.267-.466-2.414-1.523-.893-.822-1.498-1.838-1.673-2.139-.175-.301-.019-.464.132-.615.135-.135.301-.351.451-.526.151-.176.201-.301.301-.502.101-.201.05-.376-.025-.526-.075-.151-.674-1.625-.923-2.227-.242-.586-.487-.506-.674-.515-.175-.008-.376-.011-.576-.011-.2 0-.526.075-.801.401-.275.326-1.051 1.028-1.051 2.508s1.076 2.909 1.226 3.109c.151.2 2.115 3.228 5.127 4.527.717.309 1.276.493 1.714.631.72.228 1.376.196 1.895.119.58-.086 1.776-.726 2.026-1.428.25-.702.25-1.304.175-1.428-.075-.125-.275-.201-.576-.352z"/></svg>
+                Checkout on WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                5.0 Star Rated Bakery in Fatehpur
+            </div>
+            <h1>Baking Perfection, <br><span>24 Hours a Day.</span></h1>
+            <p>From elegant custom prints to rich chocolate layers, experience cakes that are moist, flavorful, and perfectly balanced. Not overly sweet, just pure delight.</p>
+            <div class="btn-group">
+                <a href="menu.html" class="btn-main">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 2v9c0 1.66-1.34 3-3 3v8H6v-8c-1.66 0-3-1.34-3-3V2h2v4h1V2h2v4h1V2h2zm6 0v11.5l-2.5 1.5V22h-3v-7c0-2.76 2.24-5 5-5V2h.5z"/></svg>
+                    Explore Full Menu
+                </a>
+                <a href="custom-cake.html" class="btn-outline">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
+                    Book Custom Cake
+                </a>
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.27,98.5,236.4,82.91,280.14,70.16,321.39,56.44Z"></path></svg>
+        </div>
+    </section>
+
+    <div class="features-wrap">
+        <div class="feat-item"><div class="feat-icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 8h-3V4H3c-1.103 0-2 .897-2 2v11h2c0 1.656 1.344 3 3 3s3-1.344 3-3h6c0 1.656 1.344 3 3 3s3-1.344 3-3h2v-5l-3-4zM6 18.5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5zm12 0c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5zM17 10h2.5l2 2.5H17V10z"/></svg></div><h4>Same Day Delivery</h4></div>
+        <div class="feat-item"><div class="feat-icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 7h-2v2h-2V7h-2v2h-2V7H9v2H7V7H5v2H3V7c0-1.103.897-2 2-2h14c1.103 0 2 .897 2 2v2h-2V7zM4 11h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11zm6 2v6h4v-6h-4z"/></svg></div><h4>In-Store Collect</h4></div>
+        <div class="feat-item"><div class="feat-icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm1 14h-2v-3H9V9h4c1.103 0 2 .897 2 2s-.897 2-2 2h-2v3zm0-5h-2v-2h2v2z"/></svg></div><h4>Free Parking</h4></div>
+        <div class="feat-item"><div class="feat-icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 14H4V6h16v12zm-3-8h-3V8h3v2zm-4 0h-3V8h3v2zm-4 0H6V8h3v2z"/></svg></div><h4>Tap & Pay (NFC)</h4></div>
+    </div>
+
+    <div class="section-header">
+        <h2>Craving Something?</h2>
+    </div>
+    <div class="categories">
+        <div class="cat-box" onclick="window.location.href='custom-cake.html'">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 3H3c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h18c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 16H3V5h18v14zm-4-3H7l4-5 3 3 1.5-2L17 16zm-7.5-6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+            <h3>Custom Print</h3>
+        </div>
+        <div class="cat-box" onclick="window.location.href='menu.html'">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3zm-8 12.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2z"/></svg>
+            <h3>Classic Cakes</h3>
+        </div>
+        <div class="cat-box" onclick="window.location.href='menu.html'">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-3.5 15a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4-3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm2-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-6-1a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+            <h3>Pastries</h3>
+        </div>
+        <div class="cat-box" onclick="window.location.href='menu.html'">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 7h-4V5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM10 5h4v2h-4V5zm10 14H4V9h6v3h4V9h6v10z"/></svg>
+            <h3>Event Orders</h3>
+        </div>
+    </div>
+
+    <section class="menu-container">
+        <div class="section-header">
+            <h2>Our Signature Bestsellers</h2>
+        </div>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <div class="bestseller-tag">Premium Custom</div>
+                <div class="img-box">
+                    <div class="veg-tag"><div class="veg-dot"></div></div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKH3C6SdKHXpc69k7vZEYdccr1moTmn0KJ3T59ur5HDCwMDdV5xIkl2nb-&s=10" alt="Custom Cake" class="pro-img">
+                </div>
+                <div class="pro-info">
+                    <h3 class="pro-name">Custom Printed Cake</h3>
+                    <p class="pro-desc">Our signature elegant cakes. Upload your photo via WhatsApp after ordering. 100% Eggless.</p>
+                    <div class="price-row">
+                        <span class="pro-price">₹1,000+</span>
+                        <a href="custom-cake.html" class="add-btn" style="text-decoration:none;">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg> Book
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-box">
+                    <div class="veg-tag"><div class="veg-dot"></div></div>
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600" alt="Chocolate Cake" class="pro-img">
+                </div>
+                <div class="pro-info">
+                    <h3 class="pro-name">Rich Chocolate Cake</h3>
+                    <p class="pro-desc">Fresh, flavorful, and incredibly moist. Perfectly balanced and not overly sweet.</p>
+                    <div class="price-row">
+                        <span class="pro-price">₹250 - ₹1500</span>
+                        <button class="add-btn" onclick="addToCart('Rich Chocolate Cake', 250)">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/></svg> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-box">
+                    <div class="veg-tag"><div class="veg-dot"></div></div>
+                    <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=600" alt="Yellow Berry Cake" class="pro-img">
+                </div>
+                <div class="pro-info">
+                    <h3 class="pro-name">Yellow Berry Cake</h3>
+                    <p class="pro-desc">A refreshing blend of fresh berries and light sponge. An elegant choice for daytime events.</p>
+                    <div class="price-row">
+                        <span class="pro-price">₹250 - ₹450</span>
+                        <button class="add-btn" onclick="addToCart('Yellow Berry Cake', 250)">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/></svg> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-box">
+                    <div class="veg-tag"><div class="veg-dot"></div></div>
+                    <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600" alt="Jay Shree Shyam Cake" class="pro-img">
+                </div>
+                <div class="pro-info">
+                    <h3 class="pro-name"> Strawberry Cream Cake </h3>
+                    <p class="pro-desc">Specially crafted and designed beautifully for your spiritual and religious celebrations.</p>
+                    <div class="price-row">
+                        <span class="pro-price">₹250 - ₹450</span>
+                        <button class="add-btn" onclick="addToCart('Jay Shree Shyam Cake', 250)">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/></svg> Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="view-all-container">
+            <a href="menu.html" class="view-all-btn">
+                Explore Full Menu 
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="test-card">
+            <div class="stars">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="quote">"The presentation is extremely elegant. The cake was fresh, moist, and flavorful without being overly sweet. Best in Fatehpur!"</p>
+            <p class="author">— Verified Google Review (Out of 263+)</p>
+        </div>
+    </section>
+
+    <footer id="about">
+        <div class="wave-top">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.27,98.5,236.4,82.91,280.14,70.16,321.39,56.44Z" fill="#FFFDF8"></path></svg>
+        </div>
+
+        <div class="foot-grid">
+            <div class="foot-col">
+                <h3 style="font-family: 'Playfair Display', serif;">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3zm-8 12.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2z"/></svg> 
+                    The Delight Cake
+                </h3>
+                <p>Fatehpur's premium 24/7 cake manufacturer. We specialize in custom designs, rich flavors, and bringing joy to your celebrations.</p>
+                <div class="gst-badge">
+                    <p style="margin:0; font-size:0.75rem; color:#ccc;">REGISTERED BUSINESS</p>
+                    <span>GSTIN: 08FEVPK0970M1ZN</span>
+                </div>
+            </div>
+            <div class="foot-col">
+                <h3>Store Location</h3>
+                <p>
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                    <span>Near Nadin Le Prince Haveli, NH 11, Pulia, Fatehpur, Rajasthan 332301</span>
+                </p>
+                <p>
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path fill="currentColor" d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/></svg>
+                    <span>Open 24/7 (Monday to Sunday)</span>
+                </p>
+                <p>
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+                    <span>+91 77425 55255</span>
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+    &copy; 2026 The Delight Cake, Fatehpur. All Rights Reserved.<br>
+     <a href="http://ajexweb.rf.gd" target="_blank" rel="noopener noreferrer" style="text-decoration: none; font-weight: bold;">Designed & Developed by full stack developer Ajex Web (Ajay Saini)</a>
+</div>
+    </footer>
+
+    <a href="https://wa.me/917742555255?text=Hello%20The%20Delight%20Cake!" target="_blank" class="float-wa">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.52 3.449A11.914 11.914 0 0 0 12 0C5.383 0 0 5.383 0 12c0 2.119.553 4.181 1.605 5.999L.462 23.53l5.658-1.488a11.91 11.91 0 0 0 5.88 1.543h.005c6.616 0 12-5.383 12-12 0-3.208-1.247-6.223-3.485-8.486v-.65zM12 21.579a9.92 9.92 0 0 1-5.068-1.385l-.364-.216-3.766.988.995-3.673-.236-.376A9.928 9.928 0 0 1 2.006 12C2.006 6.494 6.494 2.006 12 2.006c2.673 0 5.185 1.042 7.074 2.933A9.932 9.932 0 0 1 21.993 12c0 5.506-4.488 9.994-9.994 9.994l.001-.415zM17.472 14.382c-.301-.151-1.776-.877-2.05-.978-.274-.101-.474-.151-.674.151-.201.301-.775.978-.95 1.179-.175.201-.35.226-.65.075-.3-.151-1.267-.466-2.414-1.523-.893-.822-1.498-1.838-1.673-2.139-.175-.301-.019-.464.132-.615.135-.135.301-.351.451-.526.151-.176.201-.301.301-.502.101-.201.05-.376-.025-.526-.075-.151-.674-1.625-.923-2.227-.242-.586-.487-.506-.674-.515-.175-.008-.376-.011-.576-.011-.2 0-.526.075-.801.401-.275.326-1.051 1.028-1.051 2.508s1.076 2.909 1.226 3.109c.151.2 2.115 3.228 5.127 4.527.717.309 1.276.493 1.714.631.72.228 1.376.196 1.895.119.58-.086 1.776-.726 2.026-1.428.25-.702.25-1.304.175-1.428-.075-.125-.275-.201-.576-.352z"/></svg>
+    </a>
+
+    <script>
+        let cart = [];
+
+        // Simple SVG Trash Icon assigned to a variable for re-use in JS
+        const trashSvg = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+
+        function openCart() {
+            document.getElementById('cart-panel').classList.add('active');
+            document.getElementById('cart-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+        function closeCart() {
+            document.getElementById('cart-panel').classList.remove('active');
+            document.getElementById('cart-overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'hidden';
+        }
+        function toggleAddress() {
+            const orderType = document.getElementById('order-type').value;
+            document.getElementById('address-box').style.display = (orderType === 'Store Pickup') ? 'none' : 'block';
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name: name, price: price });
+            updateCartUI();
+            openCart(); 
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const listContainer = document.getElementById('cart-items-list');
+            const totalDisplay = document.getElementById('cart-total-price');
+            const badge = document.getElementById('cart-badge');
+            const checkoutForm = document.getElementById('checkout-form');
+            
+            listContainer.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; color: #999; margin-top: 40px; font-size: 1.1rem; font-weight: 600;">
+                        Your basket is feeling empty!
+                    </div>`;
+                checkoutForm.style.display = 'none';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    listContainer.innerHTML += `
+                        <div class="cart-item">
+                            <div class="item-details" style="width: 80%;">
+                                <h4>${item.name}</h4>
+                                <p>₹${item.price}</p>
+                            </div>
+                            <div class="del-btn" onclick="removeFromCart(${index})">
+                                ${trashSvg}
+                            </div>
+                        </div>
+                    `;
+                });
+                checkoutForm.style.display = 'block';
+            }
+
+            totalDisplay.innerText = total;
+            badge.innerText = cart.length;
+        }
+
+        function checkoutViaWhatsApp() {
+            if (cart.length === 0) return;
+
+            const custName = document.getElementById('cust-name').value.trim();
+            const orderType = document.getElementById('order-type').value;
+            const custAddress = document.getElementById('cust-address').value.trim();
+
+            if (!custName) { alert("Please enter your name."); return; }
+            if (orderType !== 'Store Pickup' && !custAddress) { alert("Please enter your complete delivery address."); return; }
+
+            let text = `*✨ NEW ORDER - THE DELIGHT CAKE ✨*%0A%0A`;
+            text += `*Customer:* ${custName}%0A`;
+            text += `*Type:* ${orderType}%0A`;
+            if (orderType !== 'Store Pickup') text += `*Address:* ${custAddress}%0A`;
+            text += `%0A*--- Order Items ---*%0A`;
+
+            let total = 0;
+            cart.forEach((item, i) => {
+                text += `🔸 ${item.name} - ₹${item.price}%0A`;
+                total += item.price;
+            });
+
+            text += `%0A*💰 Base Total: ₹${total}*%0A`;
+            text += `_(Final price may vary based on exact cake weight/design)_%0A%0A`;
+            text += `_Please confirm my order as soon as possible!_`;
+
+            const phone = "917742555255"; 
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>

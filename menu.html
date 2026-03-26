@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Explore the full menu of The Delight Cake, Fatehpur. Fresh Cakes, Pastries, and Custom Orders available 24/7.">
+    <title>Full Menu | The Delight Cake Fatehpur</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== VIBRANT CAKE THEME CSS VARIABLES ===== */
+        :root {
+            --choco-dark: #3E2723;
+            --velvet-red: #D81B60;
+            --velvet-light: #F06292;
+            --cream-bg: #FFFDF8;
+            --white: #FFFFFF;
+            --text-main: #4A4A4A;
+            --gold: #D4AF37;
+            --shadow-soft: 0 15px 35px rgba(216, 27, 96, 0.1);
+            --shadow-card: 0 10px 25px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== STRICT GLOBAL RESET (NO OVERFLOW) ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; }
+        html, body { background-color: var(--cream-bg); color: var(--text-main); width: 100vw; max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--choco-dark); }
+        a { text-decoration: none; color: inherit; }
+        button, select, input, textarea { outline: none; border: none; font-family: 'Nunito', sans-serif; background: transparent; }
+        img { max-width: 100%; height: auto; display: block; }
+        svg { width: 1em; height: 1em; fill: currentColor; }
+
+        /* ===== 24/7 TOP ALERT BAR ===== */
+        .top-bar { 
+            background: linear-gradient(90deg, var(--velvet-red), var(--velvet-light)); color: var(--white); 
+            text-align: center; padding: 10px; font-size: 0.95rem; font-weight: 800; letter-spacing: 1px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .top-bar svg { animation: ring 2s infinite; font-size: 1.2rem; }
+        @keyframes ring { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
+
+        /* ===== CREATIVE NAVBAR ===== */
+        header {
+            background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; width: 100%;
+        }
+        .logo { display: flex; flex-direction: column; }
+        .logo-main { font-size: 24px; font-weight: 800; color: var(--choco-dark); display: flex; align-items: center; gap: 8px; }
+        .logo-main svg { color: var(--velvet-red); font-size: 28px; }
+        .logo-sub { font-size: 0.7rem; color: #888; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        
+        .nav-links { display: flex; gap: 30px; list-style: none; font-weight: 700; font-size: 1.1rem; }
+        .nav-links a { position: relative; color: var(--text-main); transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--velvet-red); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; background: var(--velvet-red); bottom: -5px; left: 0; transition: width 0.3s ease; border-radius: 5px; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        
+        .cart-btn {
+            background: linear-gradient(135deg, var(--velvet-red), var(--velvet-light)); color: var(--white); padding: 10px 25px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.3); transition: var(--transition); cursor: pointer;
+        }
+        .cart-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(216, 27, 96, 0.4); }
+        .cart-count { background: var(--white); color: var(--velvet-red); font-size: 14px; padding: 2px 8px; border-radius: 20px; font-weight: 900; }
+        .menu-toggle { display: none; font-size: 32px; color: var(--choco-dark); cursor: pointer; }
+
+        /* ===== MINI HEADER ===== */
+        .menu-header {
+            background: linear-gradient(rgba(62, 39, 35, 0.85), rgba(62, 39, 35, 0.7)), url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            padding: 60px 20px; text-align: center; color: var(--white); position: relative; width: 100%;
+        }
+        .menu-header h1 { color: var(--white); font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 4px 10px rgba(0,0,0,0.3); }
+        .menu-header p { font-size: 1.2rem; font-weight: 600; text-shadow: 1px 2px 5px rgba(0,0,0,0.5); }
+        .wave-bottom { position: absolute; bottom: -5px; left: 0; width: 100%; overflow: hidden; line-height: 0; }
+        .wave-bottom svg { display: block; width: calc(100% + 1.3px); height: 40px; fill: var(--cream-bg); }
+
+        /* ===== ADVANCED CONTROL PANEL (SEARCH & FILTERS) ===== */
+        .controls-container { max-width: 1300px; margin: 40px auto 20px; padding: 0 5%; display: flex; flex-direction: column; gap: 20px; width: 100%; box-sizing: border-box; }
+        
+        .search-sort-bar { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; width: 100%; }
+        
+        .search-box { flex-grow: 1; position: relative; max-width: 700px; width: 100%; }
+        .search-box svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #aaa; font-size: 1.2rem; }
+        .search-box input {
+            width: 100%; box-sizing: border-box; padding: 15px 20px 15px 50px; border: 2px solid #eee; border-radius: 50px;
+            font-size: 1.05rem; font-weight: 700; outline: none; transition: var(--transition); background: var(--white); box-shadow: var(--shadow-card);
+        }
+        .search-box input:focus { border-color: var(--velvet-light); box-shadow: 0 0 0 4px rgba(240, 98, 146, 0.15); }
+        
+        .sort-box select {
+            width: 100%; box-sizing: border-box; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 1rem; font-weight: 800;
+            color: var(--choco-dark); outline: none; cursor: pointer; box-shadow: var(--shadow-card); background-color: var(--white);
+            appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D81B60' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; padding-right: 45px;
+        }
+
+        .category-filters { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 10px; width: 100%; }
+        .filter-btn {
+            background: var(--white); color: var(--text-main); padding: 12px 25px; border-radius: 50px;
+            font-size: 1rem; font-weight: 800; border: 2px solid #eee; transition: var(--transition); cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .filter-btn:hover, .filter-btn.active { background: var(--choco-dark); color: var(--white); border-color: var(--choco-dark); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(62, 39, 35, 0.2); }
+
+        /* ===== DYNAMIC PRODUCT GRID ===== */
+        .menu-grid { max-width: 1300px; margin: 30px auto 80px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; width: 100%; box-sizing: border-box; }
+        
+        .product-card {
+            background: var(--white); border-radius: 25px; padding: 15px; box-shadow: var(--shadow-card);
+            transition: var(--transition); display: flex; flex-direction: column; position: relative; animation: fadeIn 0.5s ease; width: 100%; box-sizing: border-box;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-soft); }
+        
+        .bestseller-tag { position: absolute; top: 25px; left: -10px; background: var(--gold); color: var(--choco-dark); padding: 5px 15px; font-weight: 800; font-size: 0.85rem; border-radius: 0 20px 20px 0; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        .img-box { width: 100%; height: 220px; border-radius: 20px; overflow: hidden; position: relative; }
+        .pro-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .pro-img { transform: scale(1.1); }
+        
+        .veg-tag { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 8px; backdrop-filter: blur(5px); z-index: 2; }
+        .veg-dot { width: 14px; height: 14px; background: #2E7D32; border-radius: 50%; border: 2px solid white; }
+        .non-veg-dot { background: #D32F2F; outline: 1px solid #D32F2F; border: 2px solid white; width: 14px; height: 14px; border-radius: 50%; }
+        
+        .pro-info { padding: 20px 10px 10px; flex-grow: 1; display: flex; flex-direction: column; }
+        .pro-cat { font-size: 0.8rem; color: var(--velvet-light); font-weight: 800; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
+        .pro-name { font-size: 1.3rem; font-weight: 800; margin-bottom: 8px; color: var(--choco-dark); line-height: 1.3; }
+        .pro-desc { font-size: 0.9rem; color: #777; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+        
+        .price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px dashed #eee; }
+        .pro-price { font-size: 1.5rem; font-weight: 900; color: var(--choco-dark); }
+        
+        .add-btn {
+            background: var(--white); color: var(--velvet-red); border: 2px solid var(--velvet-red);
+            padding: 8px 18px; border-radius: 50px; font-weight: 800; font-size: 1rem;
+            display: flex; align-items: center; gap: 8px; transition: var(--transition); cursor: pointer;
+        }
+        .add-btn:hover { background: var(--velvet-red); color: var(--white); transform: scale(1.05); box-shadow: 0 5px 15px rgba(216, 27, 96, 0.2); }
+
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px 0; color: #888; font-size: 1.3rem; font-weight: 800; width: 100%; }
+        .no-results svg { font-size: 4rem; color: #ddd; margin-bottom: 15px; }
+
+        /* ===== ADVANCED SIDE CART MODAL ===== */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(62, 39, 35, 0.6); backdrop-filter: blur(3px); z-index: 1999; display: none; opacity: 0; transition: 0.3s; }
+        .cart-overlay.active { display: block; opacity: 1; }
+        
+        .cart-panel { position: fixed; top: 0; right: -100%; width: 450px; max-width: 100vw; height: 100vh; background: var(--cream-bg); z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; border-left: 5px solid var(--velvet-red); box-sizing: border-box; }
+        .cart-panel.active { right: 0; }
+        
+        .cart-header { padding: 20px; background: var(--white); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; width: 100%; box-sizing: border-box; }
+        .cart-header h2 { font-size: 1.5rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+        .cart-header h2 svg { color: var(--velvet-red); }
+        .close-btn { font-size: 26px; color: #ff4757; cursor: pointer; transition: transform 0.3s; }
+        .close-btn:hover { transform: rotate(90deg); }
+        
+        .cart-body { padding: 20px; flex-grow: 1; overflow-y: auto; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border-left: 4px solid var(--choco-dark); width: 100%; box-sizing: border-box; }
+        
+        .item-details h4 { font-size: 1rem; font-weight: 800; color: var(--choco-dark); margin-bottom: 5px; line-height: 1.2; }
+        .item-details p { color: var(--velvet-light); font-weight: 800; font-size: 0.9rem; }
+        
+        /* Advanced Quantity Logic UI */
+        .qty-controls { display: flex; align-items: center; gap: 12px; margin-top: 10px; background: #fafafa; width: max-content; padding: 5px 10px; border-radius: 50px; border: 1px solid #eee; }
+        .qty-btn { background: var(--white); color: var(--choco-dark); width: 28px; height: 28px; border-radius: 50%; font-weight: 900; font-size: 1.2rem; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: var(--transition); }
+        .qty-btn:hover { background: var(--velvet-red); color: white; }
+        .qty-val { font-weight: 900; font-size: 1.1rem; color: var(--choco-dark); min-width: 15px; text-align: center; }
+
+        .del-btn { color: #ff4757; background: #ffebee; width: 35px; height: 35px; min-width: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); }
+        .del-btn:hover { background: #ff4757; color: white; }
+        
+        .checkout-form { margin-top: 25px; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: var(--shadow-card); width: 100%; box-sizing: border-box; }
+        .checkout-form h4 { margin-bottom: 15px; font-size: 1.1rem; color: var(--choco-dark); font-weight: 800; }
+        .input-group { margin-bottom: 15px; width: 100%; }
+        .input-group input, .input-group select, .input-group textarea { width: 100%; max-width: 100%; box-sizing: border-box; padding: 12px 20px; border: 2px solid #eee; border-radius: 50px; font-size: 0.95rem; font-weight: 600; outline: none; transition: var(--transition); background: #fafafa; }
+        .input-group select { cursor: pointer; }
+        .input-group textarea { border-radius: 20px; height: 80px; resize: none; }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--velvet-light); background: #fffafb; }
+        
+        .cart-footer { padding: 20px; background: var(--white); border-top: 1px solid #eee; width: 100%; box-sizing: border-box; }
+        .bill-row { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; margin-bottom: 15px; color: var(--choco-dark); }
+        .bill-row span:last-child { color: var(--velvet-red); }
+        .wa-btn { width: 100%; box-sizing: border-box; background: #25D366; color: white; padding: 15px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); transition: var(--transition); cursor: pointer; border: none; }
+        .wa-btn:hover { background: #128C7E; transform: translateY(-3px); }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--choco-dark); color: var(--white); padding: 70px 5% 30px; position: relative; width: 100%; overflow: hidden; margin-top: 50px; }
+        .wave-top { position: absolute; top: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg); }
+        .wave-top svg { display: block; width: calc(100% + 1.3px); height: 50px; fill: var(--cream-bg); }
+        
+        footer h2 { color: var(--white); font-size: 2.5rem; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        footer h2 svg { color: var(--velvet-light); }
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1rem; color: #ccc; margin-top: 20px; }
+        .copyright span { color: var(--velvet-light); font-weight: 800; letter-spacing: 1px; }
+
+        /* ===== RESPONSIVE MOBILE FIXES ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .menu-header h1 { font-size: 2.5rem; }
+            .search-sort-bar { flex-direction: column; }
+            .sort-box select { width: 100%; }
+            .category-filters { justify-content: flex-start; overflow-x: auto; padding-bottom: 10px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+            .filter-btn { white-space: nowrap; }
+            .product-grid { grid-template-columns: 1fr; }
+            .cart-panel { width: 100%; right: -100%; border-left: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path fill="currentColor" d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/></svg>
+        <span>OPEN 24/7 • MIDNIGHT DELIVERY IN FATEHPUR</span>
+    </div>
+
+    <header>
+        <div class="logo">
+            <span class="logo-main">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
+                The Delight Cake
+            </span>
+            <span class="logo-sub">Best Cake Manufacturer & Bakery</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html" class="active">Full Menu</a></li>
+            <li><a href="custom-cake.html">Custom Cakes</a></li>
+        </ul>
+        <div style="display: flex; align-items: center;">
+            <button class="cart-btn" onclick="openCart()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921zM17.307 15h-6.64l-2.5-6h11.39l-2.25 6z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>
+                My Cart
+                <span class="cart-count" id="cart-badge">0</span>
+            </button>
+            <div class="menu-toggle" style="margin-left: 15px;">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            </div>
+        </div>
+    </header>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h2>
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921zM17.307 15h-6.64l-2.5-6h11.39l-2.25 6z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>
+                Your Basket
+            </h2>
+            <div class="close-btn" onclick="closeCart()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </div>
+        </div>
+        
+        <div class="cart-body">
+            <div id="cart-items-list">
+                </div>
+            
+            <div class="checkout-form" id="checkout-form" style="display: none;">
+                <h4>Delivery Details</h4>
+                <div class="input-group">
+                    <input type="text" id="cust-name" placeholder="Your Good Name *" required>
+                </div>
+                <div class="input-group">
+                    <select id="order-type" onchange="toggleAddress()">
+                        <option value="Home Delivery">Home Delivery 🛵</option>
+                        <option value="Same Day Delivery">Same Day Delivery ⚡</option>
+                        <option value="Store Pickup">In-Store Collect 🛍️</option>
+                    </select>
+                </div>
+                <div class="input-group" id="address-box">
+                    <textarea id="cust-address" placeholder="Complete Address (Fatehpur City Only) *"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="bill-row">
+                <span>Total Bill:</span>
+                <span>₹<span id="cart-total-price">0</span></span>
+            </div>
+            <button class="wa-btn" onclick="checkoutViaWhatsApp()">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.52 3.449A11.914 11.914 0 0 0 12 0C5.383 0 0 5.383 0 12c0 2.119.553 4.181 1.605 5.999L.462 23.53l5.658-1.488a11.91 11.91 0 0 0 5.88 1.543h.005c6.616 0 12-5.383 12-12 0-3.208-1.247-6.223-3.485-8.486v-.65zm-8.52 18.13c-1.972 0-3.902-.529-5.59-1.53l-.4-.238-4.156 1.088 1.1-4.049-.261-.416A9.928 9.928 0 0 1 2.006 12C2.006 6.494 6.494 2.006 12 2.006c2.673 0 5.185 1.042 7.074 2.933A9.932 9.932 0 0 1 21.993 12c0 5.506-4.488 9.994-9.994 9.994z"/></svg>
+                Checkout on WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <section class="menu-header">
+        <h1>Explore Our Full Menu</h1>
+        <p>From sweet cravings to perfect celebrations, everything baked fresh!</p>
+        <div class="wave-bottom">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.27,98.5,236.4,82.91,280.14,70.16,321.39,56.44Z"></path></svg>
+        </div>
+    </section>
+
+    <div class="controls-container">
+        <div class="search-sort-bar">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"/></svg>
+                <input type="text" id="search-input" placeholder="Search for cakes, pastries, cookies..." onkeyup="handleSearch()">
+            </div>
+            <div class="sort-box">
+                <select id="sort-select" onchange="handleSort()">
+                    <option value="default">Sort by: Default Menu</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="category-filters" id="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('All')">All Items</button>
+            <button class="filter-btn" onclick="filterCategory('Classic Cakes')">Classic Cakes</button>
+            <button class="filter-btn" onclick="filterCategory('Specialty')">Specialty</button>
+            <button class="filter-btn" onclick="filterCategory('Divine')">Divine</button>
+            <button class="filter-btn" onclick="filterCategory('Quick Bites')">Quick Bites</button>
+            <button class="filter-btn" onclick="filterCategory('Custom')">Custom Orders</button>
+        </div>
+    </div>
+
+    <div class="menu-grid" id="product-grid">
+        </div>
+
+    <footer>
+        <div class="wave-top">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.27,98.5,236.4,82.91,280.14,70.16,321.39,56.44Z"></path></svg>
+        </div>
+        <h2>
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3zm-8 12.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2z"/></svg>
+            The Delight Cake
+        </h2>
+        <div class="copyright">
+    &copy; 2026 The Delight Cake, Fatehpur. All Rights Reserved.<br>
+     <a href="http://ajexweb.rf.gd" target="_blank" rel="noopener noreferrer" style="text-decoration: none; font-weight: bold;">Designed & Developed by full stack developer Ajex Web (Ajay Saini)</a>
+</div>
+    </footer>
+
+    <script>
+        // 1. LOCAL DATABASE (JSON Array) - Easy to manage items
+        const productsDB = [
+            { id: 1, name: "Premium Custom Printed Cake", category: "Custom", price: 1000, desc: "Our signature elegant custom cakes. Upload your photo via WhatsApp. (Price varies by size)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKH3C6SdKHXpc69k7vZEYdccr1moTmn0KJ3T59ur5HDCwMDdV5xIkl2nb-&s=10", veg: true, isBestseller: true },
+            { id: 2, name: "Rich Chocolate Cake (1 Kg)", category: "Classic Cakes", price: 250, desc: "Fresh, flavorful, and incredibly moist. Perfectly balanced and not overly sweet.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600", veg: true, isBestseller: true },
+            { id: 3, name: "Red Velvet Dream Cake", category: "Specialty", price: 250, desc: "Classic red velvet with a smooth, elegant cream cheese frosting.", img: "https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?w=600", veg: true, isBestseller: false },
+            { id: 4, name: "Yellow Berry Cake", category: "Specialty", price: 250, desc: "A refreshing blend of fresh berries and light sponge. An elegant choice.", img: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=600", veg: true, isBestseller: false },
+            { id: 5, name: " Strawberry Cream Cake", category: "Divine", price: 250, desc: "Specially crafted and designed beautifully for your spiritual celebrations.", img: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600", veg: true, isBestseller: false },
+            { id: 6, name: "Fresh Pineapple Cake", category: "Classic Cakes", price: 200, desc: "Vanilla sponge loaded with fresh pineapple chunks and whipped cream.", img: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=600", veg: true, isBestseller: false },
+            { id: 7, name: "Butterscotch Crunch", category: "Classic Cakes", price: 220, desc: "Loaded with homemade butterscotch praline for that perfect crunch.", img: "https://images.unsplash.com/photo-1602351447937-745cb720612f?w=600", veg: true, isBestseller: false },
+            { id: 8, name: "Assorted Fresh Pastries", category: "Quick Bites", price: 80, desc: "Daily baked fresh pastries. Ask us for today's flavors on WhatsApp!", img: "https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=600", veg: true, isBestseller: false },
+            { id: 9, name: "Choco Lava Cookie", category: "Quick Bites", price: 50, desc: "Warm, gooey chocolate filled cookie. Best enjoyed instantly.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600", veg: true, isBestseller: false },
+            { id: 10, name: "Party Popper & Snow Spray", category: "Custom", price: 150, desc: "Make your cake cutting moment loud and beautiful with this combo.", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600", veg: true, isBestseller: false }
+        ];
+
+        // Global States
+        let currentProducts = [...productsDB];
+        let cart = [];
+        
+        // Reusable SVG Icons for JavaScript injection
+        const plusSvg = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/></svg>`;
+        const trashSvg = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
+
+        // 2. RENDERING ENGINE
+        const gridContainer = document.getElementById('product-grid');
+
+        function renderProducts(productsToRender) {
+            gridContainer.innerHTML = '';
+
+            if (productsToRender.length === 0) {
+                gridContainer.innerHTML = `
+                    <div class="no-results">
+                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.096 11.204l1.328-2.656-1.789-.895-1.328 2.656a4.966 4.966 0 0 0-2.307-.309l-.492-2.955-1.973.328.493 2.956c-.636.31-1.196.757-1.636 1.307l-2.69-1.345-.894 1.789 2.689 1.345a4.995 4.995 0 0 0-.298 2.571H3v2h3.298a4.994 4.994 0 0 0 1.157 2.303l-2.655 1.328.895 1.789 2.655-1.328c.636.425 1.36.726 2.13.882l.492 2.955 1.973-.328-.492-2.955c.783-.15 1.517-.45 2.155-.869l2.656 1.328.894-1.789-2.655-1.328a4.993 4.993 0 0 0 1.156-2.317h3.342v-2h-3.342a5.006 5.006 0 0 0-.303-2.304zm-4.096 4.796a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg><br>
+                        Oops! No items found matching your search.
+                    </div>`;
+                return;
+            }
+
+            productsToRender.forEach(prod => {
+                const vegTagHtml = prod.veg ? '<div class="veg-dot"></div>' : '<div class="non-veg-dot"></div>';
+                const badgeHtml = prod.isBestseller ? `<div class="bestseller-tag">Bestseller</div>` : '';
+
+                const cardHTML = `
+                    <div class="product-card">
+                        ${badgeHtml}
+                        <div class="img-box">
+                            <div class="veg-tag">${vegTagHtml}</div>
+                            <img src="${prod.img}" alt="${prod.name}" class="pro-img" loading="lazy">
+                        </div>
+                        <div class="pro-info">
+                            <span class="pro-cat">${prod.category}</span>
+                            <h3 class="pro-name">${prod.name}</h3>
+                            <p class="pro-desc">${prod.desc}</p>
+                            <div class="price-row">
+                                <span class="pro-price">₹${prod.price}</span>
+                                <button class="add-btn" onclick="addToCart(${prod.id}, '${prod.name}', ${prod.price})">
+                                    ${plusSvg} Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                gridContainer.innerHTML += cardHTML;
+            });
+        }
+
+        // Initial Render
+        window.onload = () => renderProducts(currentProducts);
+
+        // 3. ADVANCED SEARCH ENGINE
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            
+            // Filter logic
+            const searchedData = productsDB.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.category.toLowerCase().includes(query)
+            );
+            
+            currentProducts = searchedData;
+            
+            // Reset category tabs visual state
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn').classList.add('active'); // Select 'All'
+
+            handleSort(); // Apply sort logic to filtered data
+        }
+
+        // 4. CATEGORY FILTER LOGIC
+        function filterCategory(categoryName) {
+            // UI Update for Buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Clear search input
+            document.getElementById('search-input').value = '';
+
+            if (categoryName === 'All') {
+                currentProducts = [...productsDB];
+            } else {
+                currentProducts = productsDB.filter(item => item.category === categoryName);
+            }
+
+            handleSort(); 
+        }
+
+        // 5. SORTING LOGIC
+        function handleSort() {
+            const sortType = document.getElementById('sort-select').value;
+            let sortedArray = [...currentProducts];
+
+            if (sortType === 'low-high') {
+                sortedArray.sort((a, b) => a.price - b.price);
+            } else if (sortType === 'high-low') {
+                sortedArray.sort((a, b) => b.price - a.price);
+            } else {
+                // Default Sort by ID
+                sortedArray.sort((a, b) => a.id - b.id);
+            }
+
+            renderProducts(sortedArray);
+        }
+
+        // 6. ADVANCED CART MANAGEMENT
+        function openCart() {
+            document.getElementById('cart-panel').classList.add('active');
+            document.getElementById('cart-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCart() {
+            document.getElementById('cart-panel').classList.remove('active');
+            document.getElementById('cart-overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'hidden';
+        }
+        function toggleAddress() {
+            const orderType = document.getElementById('order-type').value;
+            document.getElementById('address-box').style.display = (orderType === 'Store Pickup') ? 'none' : 'block';
+        }
+
+        // Smart Add to Cart (Handles Quantities)
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ id, name, price, qty: 1 });
+            }
+            
+            updateCartUI();
+            openCart(); 
+        }
+
+        function updateQty(id, change) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1); // Remove if qty drops to 0
+                }
+                updateCartUI();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const listContainer = document.getElementById('cart-items-list');
+            const totalDisplay = document.getElementById('cart-total-price');
+            const badge = document.getElementById('cart-badge');
+            const checkoutForm = document.getElementById('checkout-form');
+            
+            listContainer.innerHTML = '';
+            let total = 0;
+            let totalItemsCount = 0;
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; color: #999; margin-top: 40px; font-size: 1.1rem; font-weight: 600;">
+                        <svg style="font-size: 40px; margin-bottom: 15px; color: #ddd;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-9c.83 0 1.5-.67 1.5-1.5S10.33 8 9.5 8 8 8.67 8 9.5 8.67 11 9.5 11zm5 0c.83 0 1.5-.67 1.5-1.5S15.33 8 14.5 8 13 8.67 13 9.5 13.67 11 14.5 11zm-2 2.5c-2.33 0-4.31 1.46-5.11 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5z"/></svg><br>
+                        Your basket is feeling empty!
+                    </div>`;
+                checkoutForm.style.display = 'none';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.qty;
+                    total += itemTotal;
+                    totalItemsCount += item.qty;
+
+                    listContainer.innerHTML += `
+                        <div class="cart-item">
+                            <div class="item-details" style="flex-grow:1;">
+                                <h4>${item.name}</h4>
+                                <p>₹${item.price} x ${item.qty} = ₹${itemTotal}</p>
+                                <div class="qty-controls">
+                                    <div class="qty-btn" onclick="updateQty(${item.id}, -1)">-</div>
+                                    <span class="qty-val">${item.qty}</span>
+                                    <div class="qty-btn" onclick="updateQty(${item.id}, 1)">+</div>
+                                </div>
+                            </div>
+                            <div class="del-btn" onclick="removeFromCart(${item.id})">
+                                ${trashSvg}
+                            </div>
+                        </div>
+                    `;
+                });
+                checkoutForm.style.display = 'block';
+            }
+
+            totalDisplay.innerText = total;
+            badge.innerText = totalItemsCount;
+        }
+
+        // 7. SECURE WHATSAPP CHECKOUT
+        function checkoutViaWhatsApp() {
+            if (cart.length === 0) return;
+
+            const custName = document.getElementById('cust-name').value.trim();
+            const orderType = document.getElementById('order-type').value;
+            const custAddress = document.getElementById('cust-address').value.trim();
+
+            if (!custName) { alert("Please enter your name."); return; }
+            if (orderType === 'Home Delivery' && !custAddress) { alert("Please enter your complete delivery address."); return; }
+
+            let text = `*🛍️ NEW MENU ORDER - THE DELIGHT CAKE 🛍️*%0A%0A`;
+            text += `*Customer:* ${custName}%0A`;
+            text += `*Type:* ${orderType}%0A`;
+            if (orderType === 'Home Delivery') text += `*Address:* ${custAddress}%0A`;
+            text += `%0A*--- Order Details ---*%0A`;
+
+            let total = 0;
+            cart.forEach((item, i) => {
+                const itemTotal = item.price * item.qty;
+                text += `🔸 *${item.name}*%0A`;
+                text += `   Qty: ${item.qty} x ₹${item.price} = ₹${itemTotal}%0A`;
+                total += itemTotal;
+            });
+
+            text += `%0A*💰 Total Bill: ₹${total}*%0A%0A`;
+            text += `_Please confirm my order as soon as possible!_`;
+
+            const phone = "917742555255"; 
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>

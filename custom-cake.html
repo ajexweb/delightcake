@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Book Custom Theme Cakes for Birthdays and Anniversaries at The Delight Cake, Fatehpur.">
+    <title>Book Custom Cake | The Delight Cake Fatehpur</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== VIBRANT CAKE THEME CSS VARIABLES ===== */
+        :root {
+            --choco-dark: #3E2723;
+            --velvet-red: #D81B60;
+            --velvet-light: #F06292;
+            --cream-bg: #FFFDF8;
+            --white: #FFFFFF;
+            --text-main: #4A4A4A;
+            --gold: #D4AF37;
+            --shadow-soft: 0 15px 35px rgba(216, 27, 96, 0.1);
+            --shadow-card: 0 10px 25px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== STRICT GLOBAL RESET (NO OVERFLOW) ===== */
+        *, *::before, *::after { 
+            margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito', sans-serif; 
+        }
+        html, body { 
+            background-color: var(--cream-bg); color: var(--text-main); 
+            width: 100vw; max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; 
+        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--choco-dark); }
+        a { text-decoration: none; color: inherit; }
+        button, select, input, textarea { outline: none; border: none; font-family: 'Nunito', sans-serif; background: transparent; }
+        img { max-width: 100%; height: auto; display: block; }
+        svg { width: 1em; height: 1em; fill: currentColor; }
+
+        /* ===== CREATIVE NAVBAR ===== */
+        header {
+            background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; width: 100%;
+        }
+        .logo { display: flex; flex-direction: column; }
+        .logo-main { font-size: 24px; font-weight: 800; color: var(--choco-dark); display: flex; align-items: center; gap: 8px; }
+        .logo-main svg { color: var(--velvet-red); font-size: 28px; }
+        .logo-sub { font-size: 0.7rem; color: #888; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        
+        .nav-links { display: flex; gap: 30px; list-style: none; font-weight: 700; font-size: 1.1rem; }
+        .nav-links a { position: relative; color: var(--text-main); transition: var(--transition); }
+        .nav-links a:hover { color: var(--velvet-red); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; background: var(--velvet-red); bottom: -5px; left: 0; transition: width 0.3s ease; border-radius: 5px; }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .back-btn {
+            background: var(--white); color: var(--choco-dark); padding: 10px 25px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 2px solid #f0f0f0; transition: var(--transition); cursor: pointer;
+        }
+        .back-btn:hover { background: var(--choco-dark); color: var(--white); transform: translateX(-5px); border-color: var(--choco-dark); }
+        .menu-toggle { display: none; font-size: 32px; color: var(--choco-dark); cursor: pointer; }
+
+        /* ===== HERO BANNER FOR CUSTOM CAKES ===== */
+        .page-header {
+            position: relative; height: 45vh; width: 100%;
+            background: url('https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white);
+        }
+        .header-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(62, 39, 35, 0.85), rgba(216, 27, 96, 0.6)); }
+        .header-content { position: relative; z-index: 10; animation: fadeInDown 1s ease-out; padding: 0 20px; width: 100%; max-width: 800px; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .header-content h1 { color: var(--white); font-size: 3.5rem; margin-bottom: 10px; text-shadow: 2px 4px 10px rgba(0,0,0,0.3); }
+        .header-content p { font-size: 1.2rem; max-width: 650px; font-weight: 600; text-shadow: 1px 2px 5px rgba(0,0,0,0.5); margin: 0 auto; line-height: 1.5; }
+        .eggless-badge { display: inline-flex; align-items: center; gap: 8px; background: #2E7D32; color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.95rem; font-weight: 800; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+        .wave-bottom { position: absolute; bottom: -5px; left: 0; width: 100%; overflow: hidden; line-height: 0; }
+        .wave-bottom svg { display: block; width: calc(100% + 1.3px); height: 60px; fill: var(--cream-bg); }
+
+        /* ===== ADVANCED BOOKING FORM UI ===== */
+        .form-wrapper { max-width: 900px; margin: -40px auto 80px; padding: 0 20px; position: relative; z-index: 20; width: 100%; }
+        .booking-card {
+            background: var(--white); border-radius: 30px; box-shadow: var(--shadow-card);
+            padding: 50px; border-top: 8px solid var(--velvet-red); width: 100%; box-sizing: border-box;
+        }
+        
+        .form-title { text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--choco-dark); position: relative; padding-bottom: 15px; }
+        .form-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background: var(--velvet-light); border-radius: 5px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; width: 100%; }
+        .full-width { grid-column: span 2; }
+
+        .form-group { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .form-group label { font-weight: 800; font-size: 0.95rem; color: var(--choco-dark); display: flex; align-items: center; gap: 8px; }
+        .form-group label svg { color: var(--velvet-light); font-size: 1.1rem; }
+        
+        /* Strict Inputs (Pill Shaped) */
+        .form-control {
+            width: 100%; max-width: 100%; box-sizing: border-box; padding: 15px 20px; border: 2px solid #f0f0f0; border-radius: 50px;
+            font-size: 1rem; font-weight: 600; background: #fafafa; color: var(--text-main);
+            transition: var(--transition); outline: none; appearance: none;
+        }
+        .form-control::placeholder { color: #bbb; font-weight: 400; }
+        .form-control:focus { border-color: var(--velvet-light); background: var(--white); box-shadow: 0 0 0 4px rgba(240, 98, 146, 0.15); }
+        
+        /* Custom Dropdown Arrow using SVG Background */
+        select.form-control { 
+            cursor: pointer; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F06292' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
+            background-repeat: no-repeat; background-position: right 20px center; background-size: 16px; padding-right: 45px;
+        }
+        textarea.form-control { border-radius: 25px; height: 100px; resize: none; }
+
+        /* Reference Image Alert Box */
+        .image-alert { background: rgba(216, 27, 96, 0.05); border: 1px dashed var(--velvet-red); padding: 15px 20px; border-radius: 15px; display: flex; gap: 15px; align-items: center; margin-top: 10px; width: 100%; box-sizing: border-box; }
+        .image-alert svg { font-size: 2rem; color: var(--velvet-red); min-width: 30px; }
+        .image-alert p { font-size: 0.9rem; color: var(--choco-dark); font-weight: 700; line-height: 1.4; margin: 0; }
+
+        /* Live Price Estimator Box */
+        .price-estimator {
+            background: linear-gradient(135deg, #fff5f8, #ffeef2); border: 2px dashed var(--velvet-light);
+            padding: 30px; border-radius: 20px; text-align: center; margin-top: 40px; width: 100%; box-sizing: border-box;
+            box-shadow: inset 0 0 20px rgba(216, 27, 96, 0.05); transition: var(--transition);
+        }
+        .price-estimator h3 { font-family: 'Nunito', sans-serif; font-size: 1.3rem; color: var(--choco-dark); font-weight: 800; margin-bottom: 10px; }
+        .live-price { font-size: 3rem; font-weight: 900; color: var(--velvet-red); text-shadow: 1px 1px 0px rgba(216, 27, 96, 0.2); transition: transform 0.3s ease; }
+        .price-note { font-size: 0.9rem; color: #777; margin-top: 8px; font-weight: 600; }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #25D366, #128C7E); color: white;
+            padding: 20px; font-size: 1.3rem; font-weight: 800; border-radius: 50px;
+            display: flex; justify-content: center; align-items: center; gap: 12px;
+            margin-top: 35px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); border: none; cursor: pointer; transition: var(--transition);
+        }
+        .submit-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); }
+        .submit-btn svg { font-size: 1.6rem; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--choco-dark); color: var(--white); padding: 70px 5% 30px; position: relative; width: 100%; overflow: hidden; text-align: center; margin-top: 50px; }
+        .wave-top { position: absolute; top: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg); }
+        .wave-top svg { display: block; width: calc(100% + 1.3px); height: 50px; fill: var(--cream-bg); }
+        
+        footer h2 { color: var(--white); font-size: 2.5rem; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        footer h2 svg { color: var(--velvet-light); }
+        footer p { color: #ccc; font-size: 1.1rem; margin-bottom: 30px; }
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1rem; color: #aaa; }
+        .copyright span { color: var(--velvet-light); font-weight: 800; letter-spacing: 1px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .header-content h1 { font-size: 2.5rem; }
+            
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .booking-card { padding: 30px 20px; border-radius: 20px; }
+            .submit-btn { padding: 15px; font-size: 1.1rem; }
+            
+            .image-alert { flex-direction: column; text-align: center; }
+            .image-alert svg { margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span class="logo-main">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
+                The Delight Cake
+            </span>
+            <span class="logo-sub">Best Cake Manufacturer & Bakery</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Full Menu</a></li>
+        </ul>
+        <div style="display: flex; align-items: center;">
+            <a href="index.html" class="back-btn">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 11H7.414l5.293-5.293-1.414-1.414L3.586 12l7.707 7.707 1.414-1.414L7.414 13H20z"/></svg>
+                Back to Shop
+            </a>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <h1>Design Your Dream Cake</h1>
+            <p>Birthdays, Weddings, or Anniversaries - You dream it, we bake it fresh just for you!</p>
+            <div class="eggless-badge">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 8C8 10 5 16 5 22h2c0-4.14 2.12-7.69 5-9.66V22h2v-8.08c2.48-1.57 4-3.83 4-6.42V4h-2v4zm-5-3h-2V3h2v2z"/></svg>
+                100% Pure Eggless Guaranteed
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.27,98.5,236.4,82.91,280.14,70.16,321.39,56.44Z"></path></svg>
+        </div>
+    </section>
+
+    <div class="form-wrapper">
+        <div class="booking-card">
+            <h2 class="form-title">Custom Cake Form</h2>
+            
+            <form id="custom-cake-form">
+                <div class="form-grid">
+                    
+                    <div class="form-group">
+                        <label for="c-name">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg> 
+                            Your Full Name *
+                        </label>
+                        <input type="text" id="c-name" class="form-control" placeholder="e.g. Ajay Saini" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-phone">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.52 3.449A11.914 11.914 0 0 0 12 0C5.383 0 0 5.383 0 12c0 2.119.553 4.181 1.605 5.999L.462 23.53l5.658-1.488a11.91 11.91 0 0 0 5.88 1.543h.005c6.616 0 12-5.383 12-12 0-3.208-1.247-6.223-3.485-8.486v-.65zm-8.52 18.13c-1.972 0-3.902-.529-5.59-1.53l-.4-.238-4.156 1.088 1.1-4.049-.261-.416A9.928 9.928 0 0 1 2.006 12C2.006 6.494 6.494 2.006 12 2.006c2.673 0 5.185 1.042 7.074 2.933A9.932 9.932 0 0 1 21.993 12c0 5.506-4.488 9.994-9.994 9.994z"/></svg> 
+                            WhatsApp Number *
+                        </label>
+                        <input type="tel" id="c-phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c-occasion">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 3H3c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h18c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 16H3V5h18v14zM8 15h8v2H8zm0-4h8v2H8z"/></svg> 
+                            Occasion *
+                        </label>
+                        <select id="c-occasion" class="form-control" required>
+                            <option value="" disabled selected>Select the celebration</option>
+                            <option value="Birthday">Birthday Party</option>
+                            <option value="Anniversary">Anniversary</option>
+                            <option value="Wedding">Wedding / Engagement</option>
+                            <option value="Kids Theme">Kids Theme Party</option>
+                            <option value="Other">Other Celebration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-flavor">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22A10 10 0 1 0 2 12a10 10 0 0 0 10 10zm-1-17h2v5.59l4.95 4.95-1.41 1.41L11 11.41V5z"/></svg> 
+                            Preferred Flavor *
+                        </label>
+                        <select id="c-flavor" class="form-control" onchange="calculateEstimate()" required>
+                            <option value="Rich Chocolate Truffle" data-price="800">Rich Chocolate Truffle (₹800/kg)</option>
+                            <option value="Classic Black Forest" data-price="750">Classic Black Forest (₹750/kg)</option>
+                            <option value="Fresh Pineapple" data-price="600">Fresh Pineapple (₹600/kg)</option>
+                            <option value="Red Velvet Cream Cheese" data-price="850">Red Velvet Cream Cheese (₹850/kg)</option>
+                            <option value="Exotic Fresh Fruit" data-price="1000">Exotic Fresh Fruit (₹1000/kg)</option>
+                            <option value="Crunchy Butterscotch" data-price="650">Crunchy Butterscotch (₹650/kg)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c-weight">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> 
+                            Cake Weight *
+                        </label>
+                        <select id="c-weight" class="form-control" onchange="calculateEstimate()" required>
+                            <option value="1">1 Kg (Standard Minimum)</option>
+                            <option value="1.5">1.5 Kg</option>
+                            <option value="2">2 Kg</option>
+                            <option value="3">3 Kg</option>
+                            <option value="5">5+ Kg (Multi-tier Setup)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-shape">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16z"/></svg> 
+                            Cake Shape / Design Level
+                        </label>
+                        <select id="c-shape" class="form-control" onchange="calculateEstimate()">
+                            <option value="Round" data-extra="0">Standard Round (Free)</option>
+                            <option value="Square" data-extra="0">Square Shape (Free)</option>
+                            <option value="Heart" data-extra="50">Heart Shape (+₹50)</option>
+                            <option value="Tall Tier" data-extra="200">Tall / Tier Cake (+₹200)</option>
+                            <option value="Fondant 3D" data-extra="400">Fondant 3D Design (+₹400)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="c-message">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> 
+                            Message on Cake (Optional)
+                        </label>
+                        <input type="text" id="c-message" class="form-control" placeholder="e.g. Happy Anniversary Mom & Dad!">
+                    </div>
+                    
+                    <div class="full-width image-alert">
+                        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <p>Got a reference photo/design for your custom cake? Don't worry about uploading it here. You can send it directly to our WhatsApp chat in the next step!</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c-date">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z"/></svg> 
+                            Delivery / Pickup Date *
+                        </label>
+                        <input type="date" id="c-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-time">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 
+                            Preferred Time Slot *
+                        </label>
+                        <select id="c-time" class="form-control" required>
+                            <option value="" disabled selected>Choose a time</option>
+                            <option value="Morning (10 AM - 12 PM)">Morning (10 AM - 12 PM)</option>
+                            <option value="Afternoon (12 PM - 3 PM)">Afternoon (12 PM - 3 PM)</option>
+                            <option value="Evening (3 PM - 6 PM)">Evening (3 PM - 6 PM)</option>
+                            <option value="Night (6 PM - 9 PM)">Night (6 PM - 9 PM)</option>
+                            <option value="Midnight Delivery (+Extra)">Midnight Surprise (+Extra)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c-type">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM17 10h2.5l2 2.5H17v-2.5z"/></svg> 
+                            Delivery Method *
+                        </label>
+                        <select id="c-type" class="form-control" onchange="toggleAddressBox()" required>
+                            <option value="Home Delivery">Home Delivery in Fatehpur</option>
+                            <option value="Store Pickup">In-Store Pickup</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="c-address-group">
+                        <label for="c-address">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg> 
+                            Complete Address *
+                        </label>
+                        <textarea id="c-address" class="form-control" placeholder="House/Flat No, Street, Landmark..."></textarea>
+                    </div>
+                </div>
+
+                <div class="price-estimator" id="price-box">
+                    <h3>Estimated Price</h3>
+                    <div class="live-price">₹<span id="display-price">800</span>*</div>
+                    <div class="price-note">*Final price may vary slightly based on actual design complexity. 100% Eggless guaranteed.</div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="sendCustomOrderToWhatsApp()">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.52 3.449A11.914 11.914 0 0 0 12 0C5.383 0 0 5.383 0 12c0 2.119.553 4.181 1.605 5.999L.462 23.53l5.658-1.488a11.91 11.91 0 0 0 5.88 1.543h.005c6.616 0 12-5.383 12-12 0-3.208-1.247-6.223-3.485-8.486v-.65zm-8.52 18.13c-1.972 0-3.902-.529-5.59-1.53l-.4-.238-4.156 1.088 1.1-4.049-.261-.416A9.928 9.928 0 0 1 2.006 12C2.006 6.494 6.494 2.006 12 2.006c2.673 0 5.185 1.042 7.074 2.933A9.932 9.932 0 0 1 21.993 12c0 5.506-4.488 9.994-9.994 9.994z"/></svg>
+                    Book Order on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="wave-top">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.27,98.5,236.4,82.91,280.14,70.16,321.39,56.44Z" fill="#FFFDF8"></path></svg>
+        </div>
+        
+        <h2>
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3zm-8 12.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2z"/></svg>
+            The Delight Cake
+        </h2>
+        <p>Crafting sweet memories and premium custom cakes in Fatehpur.</p>
+        <div class="copyright">
+    &copy; 2026 The Delight Cake, Fatehpur. All Rights Reserved.<br>
+     <a href="http://ajexweb.rf.gd" target="_blank" rel="noopener noreferrer" style="text-decoration: none; font-weight: bold;">Designed & Developed by full stack developer Ajex Web (Ajay Saini)</a>
+</div>
+    </footer>
+
+    <script>
+        // JS Logic 1: Restrict Date Picker to Today onwards (No past dates allowed)
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('c-date');
+            // Format today's date properly for timezone
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            dateInput.setAttribute('min', `${year}-${month}-${day}`);
+        });
+
+        // JS Logic 2: Toggle Address Box based on Delivery/Pickup
+        function toggleAddressBox() {
+            const method = document.getElementById('c-type').value;
+            const addrGroup = document.getElementById('c-address-group');
+            if (method === 'Store Pickup') {
+                addrGroup.style.display = 'none';
+            } else {
+                addrGroup.style.display = 'flex';
+            }
+        }
+
+        // JS Logic 3: Live Price Estimator Calculation
+        function calculateEstimate() {
+            const flavorSelect = document.getElementById('c-flavor');
+            const weightSelect = document.getElementById('c-weight');
+            const shapeSelect = document.getElementById('c-shape');
+
+            // Safe extraction of dataset values
+            const basePricePerKg = parseFloat(flavorSelect.options[flavorSelect.selectedIndex].getAttribute('data-price')) || 800;
+            const weight = parseFloat(weightSelect.value) || 1;
+            const extraCharges = parseFloat(shapeSelect.options[shapeSelect.selectedIndex].getAttribute('data-extra')) || 0;
+
+            // Mathematical Logic: (Base * Weight) + Extras
+            const totalEstimate = (basePricePerKg * weight) + extraCharges;
+
+            // Update DOM with smooth animation effect
+            const priceElement = document.getElementById('display-price');
+            const priceBox = document.getElementById('price-box');
+            
+            priceElement.innerText = totalEstimate;
+            
+            // Pop animation on update
+            priceBox.style.transform = 'scale(1.05)';
+            priceBox.style.boxShadow = 'inset 0 0 30px rgba(216, 27, 96, 0.15)';
+            setTimeout(() => { 
+                priceBox.style.transform = 'scale(1)'; 
+                priceBox.style.boxShadow = 'inset 0 0 20px rgba(216, 27, 96, 0.05)';
+            }, 300);
+        }
+
+        // Initial calculation on page load
+        window.onload = calculateEstimate;
+
+        // JS Logic 4: Strict Validation & WhatsApp API Routing
+        function sendCustomOrderToWhatsApp() {
+            // Fetch all field values
+            const name = document.getElementById('c-name').value.trim();
+            const phone = document.getElementById('c-phone').value.trim();
+            const occasion = document.getElementById('c-occasion').value;
+            const flavor = document.getElementById('c-flavor').options[document.getElementById('c-flavor').selectedIndex].text;
+            const weight = document.getElementById('c-weight').value;
+            const shape = document.getElementById('c-shape').options[document.getElementById('c-shape').selectedIndex].text;
+            const messageOnCake = document.getElementById('c-message').value.trim();
+            const date = document.getElementById('c-date').value;
+            const time = document.getElementById('c-time').value;
+            const type = document.getElementById('c-type').value;
+            const address = document.getElementById('c-address').value.trim();
+            const estimatedPrice = document.getElementById('display-price').innerText;
+
+            // Strict Validation Rules
+            if (!name) { alert("Please enter your Full Name."); return; }
+            if (!phone || phone.length < 10) { alert("Please enter a valid WhatsApp Number."); return; }
+            if (!occasion) { alert("Please select the Occasion."); return; }
+            if (!date) { alert("Please select a Delivery/Pickup Date."); return; }
+            if (!time) { alert("Please select a Time Slot."); return; }
+            if (type === 'Home Delivery' && !address) { alert("Please enter your complete address for home delivery."); return; }
+
+            // Constructing a Premium Format WhatsApp Message
+            let text = `*🌟 PREMIUM CUSTOM CAKE BOOKING 🌟*%0A%0A`;
+            
+            text += `*👨‍💼 Customer Details:*%0A`;
+            text += `Name: ${name}%0A`;
+            text += `WhatsApp: ${phone}%0A`;
+            text += `Method: ${type}%0A`;
+            if (type === 'Home Delivery') {
+                text += `Address: ${address}%0A`;
+            }
+            text += `%0A`;
+            
+            text += `*🎂 Cake Specifications:*%0A`;
+            text += `Occasion: ${occasion}%0A`;
+            text += `Flavor: ${flavor} (Eggless 🌱)%0A`;
+            text += `Weight: ${weight} Kg%0A`;
+            text += `Shape/Design: ${shape}%0A`;
+            
+            if (messageOnCake) {
+                text += `✍️ Message on Cake: "${messageOnCake}"%0A`;
+            }
+
+            text += `%0A*📅 Schedule:*%0A`;
+            text += `Date: ${date}%0A`;
+            text += `Time Slot: ${time}%0A%0A`;
+
+            text += `*💰 Estimated Price: ₹${estimatedPrice}*%0A`;
+            text += `_(Note: Final price will be confirmed after seeing the design)_%0A%0A`;
+
+            text += `*📸 REFERENCE DESIGN:* I am sending my cake design photo below this message now.%0A%0A`;
+            text += `Please check and confirm my booking. Thank you!`;
+
+            // Official Client WhatsApp Number (The Delight Cake)
+            const whatsappNumber = "917742555255"; 
+            const waLink = `https://wa.me/${whatsappNumber}?text=${text}`;
+            
+            // Show instruction alert before redirecting
+            alert("Important: Since you're booking a custom cake, please don't forget to ATTACH YOUR REFERENCE PHOTO in the WhatsApp chat that opens next.");
+
+            // Open WhatsApp
+            window.open(waLink, '_blank');
+        }
+    </script>
+</body>
+</html>
