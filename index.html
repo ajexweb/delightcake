@@ -75,6 +75,65 @@
         .cart-count { background: var(--white); color: var(--velvet-red); font-size: 14px; padding: 2px 8px; border-radius: 20px; font-weight: 900; }
         .menu-toggle { display: none; font-size: 32px; color: var(--choco-dark); cursor: pointer; }
 
+        /* ===== PERFECT FIXED CART ARCHITECTURE ===== */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(62, 39, 35, 0.6); backdrop-filter: blur(3px); z-index: 1999; display: none; opacity: 0; transition: 0.3s; }
+        .cart-overlay.active { display: block; opacity: 1; }
+        
+        /* 100dvh makes sure it handles mobile URL bars perfectly */
+        .cart-panel { 
+            position: fixed; top: 0; right: -100%; width: 400px; max-width: 100vw; 
+            height: 100vh; /* Fallback */
+            height: 100dvh; /* Modern Mobile Fix */
+            background: var(--cream-bg); z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; flex-direction: column; /* This enables scroll locking */
+            border-left: 5px solid var(--velvet-red); box-sizing: border-box; 
+        }
+        .cart-panel.active { right: 0; }
+        
+        /* Header is fixed at top */
+        .cart-header { 
+            flex: 0 0 auto; /* Won't shrink or grow */
+            padding: 20px; background: var(--white); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; width: 100%; box-sizing: border-box; 
+        }
+        .cart-header h2 { font-size: 1.5rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+        .cart-header h2 svg { color: var(--velvet-red); }
+        .close-btn { font-size: 26px; color: #ff4757; cursor: pointer; transition: transform 0.3s; }
+        .close-btn:hover { transform: rotate(90deg); }
+        
+        /* Body handles all the scrolling natively */
+        .cart-body { 
+            flex: 1 1 auto; /* Takes up all remaining space */
+            padding: 20px; overflow-y: auto; overflow-x: hidden; width: 100%; box-sizing: border-box; 
+            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+        }
+        
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border-left: 4px solid var(--choco-dark); width: 100%; box-sizing: border-box; }
+        .item-details h4 { font-size: 1rem; font-weight: 800; color: var(--choco-dark); line-height: 1.2; margin-bottom: 5px; }
+        .item-details p { color: var(--velvet-red); font-weight: 800; font-size: 1.1rem; }
+        .del-btn { color: #ff4757; background: #ffebee; width: 35px; height: 35px; min-width: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); }
+        
+        .checkout-form { margin-top: 20px; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: var(--shadow-card); width: 100%; box-sizing: border-box; }
+        .checkout-form h4 { margin-bottom: 15px; font-size: 1.1rem; color: var(--choco-dark); font-weight: 800; }
+        .input-group { margin-bottom: 15px; width: 100%; }
+        .input-group input, .input-group select, .input-group textarea { 
+            width: 100%; max-width: 100%; box-sizing: border-box; padding: 12px 20px; 
+            border: 2px solid #eee; border-radius: 25px; font-size: 0.95rem; font-weight: 600; 
+            outline: none; transition: var(--transition); background: #fafafa;
+        }
+        .input-group select { cursor: pointer; }
+        .input-group textarea { height: 80px; resize: none; }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--velvet-light); background: #fffafb; }
+        
+        /* Footer is fixed at the bottom */
+        .cart-footer { 
+            flex: 0 0 auto; /* Won't shrink or grow */
+            padding: 20px; background: var(--white); border-top: 1px solid #eee; width: 100%; box-sizing: border-box; 
+        }
+        .bill-row { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; margin-bottom: 15px; color: var(--choco-dark); }
+        .wa-btn { width: 100%; box-sizing: border-box; background: #25D366; color: white; padding: 15px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); transition: var(--transition); cursor: pointer; border: none; }
+        .wa-btn:hover { background: #128C7E; transform: translateY(-2px); }
+
         /* ===== TASTY HERO SECTION ===== */
         .hero {
             position: relative; min-height: 85vh; width: 100%;
@@ -156,47 +215,6 @@
         .quote { font-size: 1.5rem; font-style: italic; color: var(--choco-dark); font-family: 'Playfair Display', serif; margin-bottom: 20px; line-height: 1.5; }
         .author { font-weight: 800; color: var(--velvet-red); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* ===== STRICTLY ADJUSTED SIDE CART MODAL ===== */
-        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(62, 39, 35, 0.6); backdrop-filter: blur(3px); z-index: 1999; display: none; opacity: 0; transition: 0.3s; }
-        .cart-overlay.active { display: block; opacity: 1; }
-        
-        .cart-panel { 
-            position: fixed; top: 0; right: -100%; width: 400px; max-width: 100vw; height: 100vh; 
-            background: var(--cream-bg); z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; 
-            border-left: 5px solid var(--velvet-red); box-sizing: border-box; 
-        }
-        .cart-panel.active { right: 0; }
-        
-        .cart-header { padding: 20px; background: var(--white); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; width: 100%; box-sizing: border-box; }
-        .cart-header h2 { font-size: 1.5rem; margin: 0; display: flex; align-items: center; gap: 10px; }
-        .cart-header h2 svg { color: var(--velvet-red); }
-        .close-btn { font-size: 26px; color: #ff4757; cursor: pointer; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        
-        .cart-body { padding: 20px; flex-grow: 1; overflow-y: auto; width: 100%; box-sizing: border-box; overflow-x: hidden; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border-left: 4px solid var(--choco-dark); width: 100%; box-sizing: border-box; }
-        .item-details h4 { font-size: 1rem; font-weight: 800; color: var(--choco-dark); line-height: 1.2; margin-bottom: 5px; }
-        .item-details p { color: var(--velvet-red); font-weight: 800; font-size: 1.1rem; }
-        .del-btn { color: #ff4757; background: #ffebee; width: 35px; height: 35px; min-width: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); }
-        
-        .checkout-form { margin-top: 25px; background: var(--white); padding: 20px; border-radius: 20px; box-shadow: var(--shadow-card); width: 100%; box-sizing: border-box; }
-        .checkout-form h4 { margin-bottom: 15px; font-size: 1.1rem; color: var(--choco-dark); font-weight: 800; }
-        .input-group { margin-bottom: 15px; width: 100%; }
-        .input-group input, .input-group select, .input-group textarea { 
-            width: 100%; max-width: 100%; box-sizing: border-box; padding: 12px 20px; 
-            border: 2px solid #eee; border-radius: 50px; font-size: 0.95rem; font-weight: 600; 
-            outline: none; transition: var(--transition); background: #fafafa;
-        }
-        .input-group select { cursor: pointer; }
-        .input-group textarea { border-radius: 20px; height: 80px; resize: none; }
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--velvet-light); background: #fffafb; }
-        
-        .cart-footer { padding: 20px; background: var(--white); border-top: 1px solid #eee; width: 100%; box-sizing: border-box; }
-        .bill-row { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; margin-bottom: 15px; color: var(--choco-dark); }
-        .wa-btn { width: 100%; box-sizing: border-box; background: #25D366; color: white; padding: 15px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); transition: var(--transition); cursor: pointer; border: none; }
-        .wa-btn:hover { background: #128C7E; transform: translateY(-3px); }
-
         /* ===== FOOTER ===== */
         footer { background: var(--choco-dark); color: var(--white); padding: 70px 5% 30px; position: relative; width: 100%; overflow: hidden; }
         .wave-top { position: absolute; top: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg); }
@@ -245,16 +263,16 @@
 
     <div class="top-bar">
         <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path fill="currentColor" d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/></svg>
-        <span>OPEN 24/7 • MIDNIGHT DELIVERY</span>
+        <span>OPEN 24/7 • DELIVERY</span>
     </div>
 
     <header>
         <div class="logo">
             <span class="logo-main">
                 <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
-                The Delight Cake
+                 The
             </span>
-            <span class="logo-sub">Fatehpur</span>
+            <span class="logo-sub">Delight Cake</span>
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -264,7 +282,7 @@
         <div style="display: flex; align-items: center;">
             <button class="cart-btn" onclick="openCart()">
                 <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921zM17.307 15h-6.64l-2.5-6h11.39l-2.25 6z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>
-                My Cart
+                 Cart
                 <span class="cart-count" id="cart-badge">0</span>
             </button>
             <div class="menu-toggle" style="margin-left: 15px;">
@@ -275,6 +293,7 @@
 
     <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
     <div class="cart-panel" id="cart-panel">
+        
         <div class="cart-header">
             <h2>
                 <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921zM17.307 15h-6.64l-2.5-6h11.39l-2.25 6z"/><circle cx="10.5" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17.5" cy="19.5" r="1.5" fill="currentColor"/></svg>
@@ -337,7 +356,7 @@
                     Explore Full Menu
                 </a>
                 <a href="custom-cake.html" class="btn-outline">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 0-1 1v2.5a.5.5 0 0 1-1 0V3a1 1 0 1 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v4.22A5.996 5.996 0 0 0 2 13v5c0 2.206 1.794 4 4 4h12c2.206 0 4-1.794 4-4v-5a5.996 5.996 0 0 0-3-5.78V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-2 0v2.5a.5.5 0 0 1-1 0V3a1 1 0 0 0-1-1zM4 14.5c1.103 0 2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-1.103.897-2 2-2s2 .897 2 2v.5h2v-.5c0-2.206-1.794-4-4-4s-2.206 1.794-4 4v.5h-2v-.5c0-2.206-1.794-4-4-4S2 10.794 2 13v.5h2v-.5z"/></svg>
                     Book Custom Cake
                 </a>
             </div>
@@ -386,7 +405,7 @@
                 <div class="bestseller-tag">Premium Custom</div>
                 <div class="img-box">
                     <div class="veg-tag"><div class="veg-dot"></div></div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKH3C6SdKHXpc69k7vZEYdccr1moTmn0KJ3T59ur5HDCwMDdV5xIkl2nb-&s=10" alt="Custom Cake" class="pro-img">
+                    <img src="https://images.unsplash.com/photo-1562777717-b6aff3af83f2?w=600" alt="Custom Cake" class="pro-img">
                 </div>
                 <div class="pro-info">
                     <h3 class="pro-name">Custom Printed Cake</h3>
@@ -440,7 +459,7 @@
                     <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600" alt="Jay Shree Shyam Cake" class="pro-img">
                 </div>
                 <div class="pro-info">
-                    <h3 class="pro-name"> Strawberry Cream Cake </h3>
+                    <h3 class="pro-name">Jay Shree Shyam Cake</h3>
                     <p class="pro-desc">Specially crafted and designed beautifully for your spiritual and religious celebrations.</p>
                     <div class="price-row">
                         <span class="pro-price">₹250 - ₹450</span>
@@ -521,7 +540,6 @@
     <script>
         let cart = [];
 
-        // Simple SVG Trash Icon assigned to a variable for re-use in JS
         const trashSvg = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
 
         function openCart() {
@@ -533,7 +551,7 @@
             document.getElementById('cart-panel').classList.remove('active');
             document.getElementById('cart-overlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            document.body.style.overflowX = 'hidden';
+            document.body.style.overflowX = 'hidden'; 
         }
         function toggleAddress() {
             const orderType = document.getElementById('order-type').value;
